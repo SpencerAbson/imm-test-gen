@@ -262,7 +262,7 @@ class TestFile:
                             checked_imms[param_idx] = RangedImm(lower, upper,
                                                                 RangeType.RANGING_VAL)
                     elif match_single:
-                        param_idx = (proto_list.index(match_ranging.group('name')) - 2) // 2
+                        param_idx = (proto_list.index(match_single.group('name')) - 2) // 2
                         lower = int(match_single.group('lower'))
                         upper = int(match_single.group('upper'))
 
