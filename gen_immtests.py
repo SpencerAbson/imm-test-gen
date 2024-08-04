@@ -263,10 +263,9 @@ class TestFile:
                                                                 RangeType.RANGING_VAL)
                     elif match_single:
                         param_idx = (proto_list.index(match_single.group('name')) - 2) // 2
-                        lower = int(match_single.group('lower'))
-                        upper = int(match_single.group('upper'))
+                        value = int(match_single.group('const'))
 
-                        checked_imms[param_idx] = RangedImm(lower, upper,
+                        checked_imms[param_idx] = RangedImm(value, value,
                                                             RangeType.SINGLE_VAL)
             if len(checked_imms.keys()):
                 test_set.add_intrinsic(Intrinsic(proto_list, checked_imms))
