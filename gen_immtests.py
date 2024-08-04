@@ -161,7 +161,7 @@ class TestFunc:
     def get_size_specifier(t_string: str):
         size = re.findall(r'[\dx]+', t_string)
         if len(size):
-            return size[0]
+            return t_string[0] + size[0]
         return t_string     # has no size specifier
 
     def generate_types_to_names(self):
