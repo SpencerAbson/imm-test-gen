@@ -85,7 +85,10 @@ class Intrinsic:
         self.__proto_dict['params'] = []    # list of types
         for i in range(POS_PARAM_START, len(proto_list)):
             if i % 2 == 0:  # types will have an even prototype string index
-                self.__proto_dict['params'].append(proto_list[i])
+                if proto_list[i+1][0] == '*':   # temporary ptr fix
+                    self.__proto_dict['params'].append(proto_list[i] + '*')
+                else:
+                    self.__proto_dict['params'].append(proto_list[i])
 
     def get_param_set(self) -> set:    # excluding immediates
         no_imm_types = self.__proto_dict['params']
@@ -164,9 +167,19 @@ class TestFunc:
             return t_string[0] + size[0]
         return t_string     # has no size specifier
 
+    @staticmethod
+    def gen_arg_name(t_string: str):
+        size_spec = re.findall(r'[\dx]+', t_string)
+        ptr_suffix = '_ptr' if t_string[-1] == '*' else ''
+
+        if len(size_spec):
+            return t_string[0] + size_spec[0] + ptr_suffix
+
+        return t_string[:-1] + ptr_suffix
+
     def generate_types_to_names(self):
         return {element: 'arg_' +
-                TestFunc.get_size_specifier(element) for
+                TestFunc.gen_arg_name(element) for
                 element in self.__required_types}
 
     def emit(self):
