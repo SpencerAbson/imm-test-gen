@@ -303,7 +303,7 @@ class TestFile:
         # add target features to run line
         if args['target_features']:
             for feat in args['target_features']:
-                file_str += ' -target-feaure ' + feat
+                file_str += ' -target-feature ' + feat
 
         file_str += RUN_LINE_END_STR + '\n\n' + NEON_HEADER_STR + '\n'
         # add additional headers to file
